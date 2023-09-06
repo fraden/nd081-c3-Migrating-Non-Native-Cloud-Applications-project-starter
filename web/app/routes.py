@@ -71,23 +71,19 @@ def notification():
             ## TODO: Refactor This logic into an Azure Function
             ## Code below will be replaced by a message queue
             #################################################
-            attendees = Attendee.query.all()
 
-            for attendee in attendees:
-                subject = '{}: {}'.format(attendee.first_name, notification.subject)
-                send_email(attendee.email, subject, notification.message)
-
-            notification.completed_date = datetime.utcnow()
-            notification.status = 'Notified {} attendees'.format(len(attendees))
-            db.session.commit()
             # TODO Call servicebus queue_client to enqueue notification ID
+            db.session.refresh(notification)
+            msg = Message(str(notification.id))
+            sent_result = queue_client.send(msg)
 
             #################################################
             ## END of TODO
             #################################################
 
             return redirect('/Notifications')
-        except :
+        except Exception as e:
+            logging.error(e)
             logging.error('log unable to save notification')
 
     else:
@@ -105,3 +101,4 @@ def send_email(email, subject, body):
 
         sg = SendGridAPIClient(app.config.get('SENDGRID_API_KEY'))
         sg.send(message)
+

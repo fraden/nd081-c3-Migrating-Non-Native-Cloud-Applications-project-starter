@@ -140,4 +140,4 @@ cython_debug/
 .azure
 
 # macOS
-.DS_Store
+*.DS_Store
