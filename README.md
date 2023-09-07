@@ -61,6 +61,8 @@ You will need to install the following locally:
 ## Monthly Cost Analysis
 Complete a month cost analysis of each Azure resource to give an estimate total cost using the table below:
 
+### Test environment
+
 | Azure Resource | Service Tier | Monthly Cost |
 | ------------ | ------------ | ------------ |
 | *Azure Postgres Database* |  Basic, 1 vCore(s), 5 GB   |   29.65 USD           |
@@ -68,7 +70,15 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 | *Web App*                  |    Basic B1    |     13,14 USD + 0,018USD/hour        |
 | *Function App* | Y1 | Consumption |
 
+### Production environment
+
+| Azure Resource | Service Tier | Monthly Cost |
+| ------------ | ------------ | ------------ |
+| *Azure Postgres Database* |  Basic, 1 vCore(s), 5 GB   |   29.65 USD           |
+| *Azure Service Bus*   |     Standard    |     10 USD         |
+| *Web App*                  |    Standard S1    |     69,35,14 USD + 0,095USD/hour        |
+| *Function App* | Y1 | Consumption |
 ## Architecture Explanation
-For Azure Web App I have chosen Basic B1, since I only want to test the service. I don't want to run it in production. Furthermore B1 is sufficient, since the app does not need to much hardware requirements.
+For Azure Web App I would choose Standard S1 for production. This is sufficient, since the app does not need to much hardware requirements. The app can scale much better than by using the test/dev tiers.
 
 For the Function App I have chosen Y1 Consumption, since it is needed less and I just need to pay for the execution time of the function app. The consumption plan allowes to scale automatically, by considering the incoming requests.
