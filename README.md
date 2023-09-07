@@ -82,3 +82,9 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 For Azure Web App I would choose Standard S1 for production. This is sufficient, since the app does not need to much hardware requirements. The app can scale much better than by using the test/dev tiers.
 
 For the Function App I have chosen Y1 Consumption, since it is needed less and I just need to pay for the execution time of the function app. The consumption plan allowes to scale automatically, by considering the incoming requests.
+
+To separate the application into its frontend and functions, I have employed the Azure Service Bus Queue for initiating the notification function. The web app initiates the queue, and the function retrieves the notification ID from the queue and initiates the email triggering function.
+
+I tested it with free Tier or at least cheap tier, but in production I would use a more expensive production tier, such that it can scale up and down easily.
+
+The database is with the Service Tier "Basic, 1 vCore(s), 5 GB" enough, since the frontend will only be visited from time to time and not by millions of users at once.
